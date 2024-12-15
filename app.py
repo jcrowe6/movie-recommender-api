@@ -60,8 +60,7 @@ def recommend():
         # Return recommendations as JSON
         response = jsonify({
             "success": True,
-            "recIds": recommendations,
-            "recTitles": titles
+            "recs": list(zip(recommendations,titles))
         })
         response.headers.add('Access-Control-Allow-Origin', '*')
 
@@ -81,8 +80,7 @@ def getInitialMovies():
         # Return recommendations as JSON
         response = jsonify({
             "success": True,
-            "recIds": top20s,
-            "recTitles": titles
+            "recs": list(zip(top20s,titles))
         })
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
