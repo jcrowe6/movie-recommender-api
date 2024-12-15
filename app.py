@@ -48,7 +48,7 @@ def recommend():
 
         # populate with provided ratings
         for mid in input_data:
-            fullRatings[mid] = input_data[mid]
+            fullRatings['m' + str(mid)] = input_data[mid]
 
         # Compute recommendations
         recommendations = ICBF(fullRatings)
