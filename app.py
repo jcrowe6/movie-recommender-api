@@ -58,11 +58,15 @@ def recommend():
         titles = list(movies.loc[recommendations]["Title"])
 
         # Return recommendations as JSON
-        return jsonify({
+        response = jsonify({
             "success": True,
             "recIds": recommendations,
             "recTitles": titles
         })
+        response.headers.add('Access-Control-Allow-Origin', '*')
+
+        return response
+    
     except Exception as e:
         return jsonify({
             "success": False,
@@ -73,11 +77,15 @@ def recommend():
 @app.route('/getInitialMovies', methods=['GET'])
 def getInitialMovies():
     try:
+        titles = list(movies.loc[top20s]["Title"])
         # Return recommendations as JSON
-        return jsonify({
+        response = jsonify({
             "success": True,
-            "movieIds": top20s
+            "recIds": top20s,
+            "recTitles": titles
         })
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
     except Exception as e:
         return jsonify({
             "success": False,
