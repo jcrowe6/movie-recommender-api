@@ -13,7 +13,6 @@ movies = pd.read_csv('movies.dat', sep='::', engine = 'python',
 movies.columns = ['MovieID', 'Title', 'Genres']
 multiple_idx = pd.Series([("|" in movie) for movie in movies['Genres']])
 movies.loc[multiple_idx, 'Genres'] = 'Multiple'
-movies.set_index('MovieID')
 
 # Load predefined top movies
 top20s = [2858, 260, 1196, 1210, 2028, 1198, 593, 2571, 2762, 589, 608, 527, 110, 1270, 318, 858, 480, 1197, 2396, 1617]
@@ -55,7 +54,7 @@ def recommend():
         recommendations = ICBF(fullRatings)
         
         # get titles
-        titles = list(movies.loc[recommendations]["Title"])
+        titles = list(movies.set_index('MovieID').loc[recommendations]["Title"])
 
         # Return recommendations as JSON
         response = jsonify({
@@ -76,7 +75,7 @@ def recommend():
 @app.route('/api/movieapi/getInitialMovies', methods=['GET'])
 def getInitialMovies():
     try:
-        titles = list(movies.loc[top20s]["Title"])
+        titles = list(movies.set_index('MovieID').loc[top20s]["Title"])
         # Return recommendations as JSON
         response = jsonify({
             "success": True,
