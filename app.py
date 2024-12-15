@@ -38,7 +38,7 @@ def ICBF(newuser: pd.Series) -> list:
     return out
 
 # Define an API route for recommendations
-@app.route('/recommend', methods=['POST'])
+@app.route('/api/movieapi/recommend', methods=['POST'])
 def recommend():
     try:
         # Get input ratings as JSON
@@ -74,7 +74,7 @@ def recommend():
         }), 400
     
 # Define an API route for recommendations
-@app.route('/getInitialMovies', methods=['GET'])
+@app.route('/api/movieapi/getInitialMovies', methods=['GET'])
 def getInitialMovies():
     try:
         titles = list(movies.loc[top20s]["Title"])
